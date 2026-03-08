@@ -1,0 +1,171 @@
+<html>
+	<head>
+		<title>My Login page</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="login-box">
+						<!-- Login Form -->
+						<div id="login-form">
+							<h2>Login</h2>
+							<form id="main-login">
+								<div class="input-box">
+									<input type="email" id="login-email" required>
+									<label>Email</label>
+								</div>
+								<div class="input-box">
+									<input type="password" id="login-pass" required>
+									<label>Password</label>
+								</div>
+								<div class="forgot-pass">
+									<a href="#" onclick="showForm('forgot-form')">Forget your password?</a>
+								</div>
+								<button type="submit" class="btn">Login</button>
+								<div class="signup-link">
+									<a href="#" onclick="showForm('signup-form')">Signup</a>
+								</div>
+							</form>
+						</div>
+
+						<!-- Signup Form (Hidden by default) -->
+						<div id="signup-form" style="display:none;">
+							<h2>Signup</h2>
+							<form id="main-signup">
+								<div class="input-box">
+									<input type="email" id="reg-email" required>
+									<label>Create Email</label>
+								</div>
+								<div class="input-box">
+									<input type="password" id="reg-pass" required>
+									<label>Create Password</label>
+								</div>
+								<button type="submit" class="btn">Register</button>
+								<div class="signup-link">
+									<a href="#" onclick="showForm('login-form')">Back to Login</a>
+								</div>
+							</form>
+						</div>
+
+						<!-- Forgot Password Form (Hidden by default) -->
+						<div id="forgot-form" style="display:none;">
+							<h2>Reset</h2>
+							<p style="color:white; text-align:center; font-size:0.8em;">Enter email to reset password</p>
+							<form id="main-forgot">
+								<div class="input-box">
+									<input type="email" required>
+									<label>Email</label>
+								</div>
+								<button type="submit" class="btn">Reset Password</button>
+								<div class="signup-link">
+									<a href="#" onclick="showForm('login-form')">Back to Login</a>
+								</div>
+							</form>
+						</div>
+					</div>
+
+			<span style="--i:0;"></span>
+			<span style="--i:1;"></span>
+			<span style="--i:2;"></span>
+			<span style="--i:3;"></span>
+			<span style="--i:4;"></span>
+			<span style="--i:5;"></span>
+			<span style="--i:6;"></span>
+			<span style="--i:7;"></span>
+			<span style="--i:8;"></span>
+			<span style="--i:9;"></span>
+			<span style="--i:10;"></span>
+			<span style="--i:11;"></span>
+			<span style="--i:12;"></span>
+			<span style="--i:13;"></span>
+			<span style="--i:14;"></span>
+			<span style="--i:15;"></span>
+			<span style="--i:16;"></span>
+			<span style="--i:17;"></span>
+			<span style="--i:18;"></span>
+			<span style="--i:19;"></span>
+			<span style="--i:20;"></span>
+			<span style="--i:21;"></span>
+			<span style="--i:22;"></span>
+			<span style="--i:23;"></span>
+			<span style="--i:24;"></span>
+			<span style="--i:25;"></span>
+			<span style="--i:26;"></span>
+			<span style="--i:27;"></span>
+			<span style="--i:28;"></span>
+			<span style="--i:29;"></span>
+			<span style="--i:30;"></span>
+			<span style="--i:31;"></span>
+			<span style="--i:32;"></span>
+			<span style="--i:33;"></span>
+			<span style="--i:34;"></span>
+			<span style="--i:35;"></span>
+			<span style="--i:36;"></span>
+			<span style="--i:37;"></span>
+			<span style="--i:38;"></span>
+			<span style="--i:39;"></span>
+			<span style="--i:40;"></span>
+			<span style="--i:41;"></span>
+			<span style="--i:42;"></span>
+			<span style="--i:43;"></span>
+			<span style="--i:44;"></span>
+			<span style="--i:45;"></span>
+			<span style="--i:46;"></span>
+			<span style="--i:47;"></span>
+			<span style="--i:48;"></span>
+			<span style="--i:49;"></span>
+		</div>
+			<script>
+					// Function to switch between Login, Signup, and Forgot forms
+					function showForm(formId) {
+						document.getElementById('login-form').style.display = 'none';
+						document.getElementById('signup-form').style.display = 'none';
+						document.getElementById('forgot-form').style.display = 'none';
+						document.getElementById(formId).style.display = 'block';
+					}
+
+					// SIGNUP LOGIC: Save data to LocalStorage
+					document.getElementById('main-signup').addEventListener('submit', (e) => {
+						e.preventDefault();
+						const email = document.getElementById('reg-email').value;
+						const pass = document.getElementById('reg-pass').value;
+						
+						localStorage.setItem('userEmail', email);
+						localStorage.setItem('userPass', pass);
+						
+						alert("Registration Successful! Now you can Login.");
+						document.getElementById('main-signup').reset();
+						showForm('login-form');
+					});
+
+					// LOGIN LOGIC: Check against saved data
+					document.getElementById('main-login').addEventListener('submit', (e) => {
+						e.preventDefault();
+						const email = document.getElementById('login-email').value;
+						const pass = document.getElementById('login-pass').value;
+
+						const savedEmail = localStorage.getItem('userEmail');
+						const savedPass = localStorage.getItem('userPass');
+
+						if (email === savedEmail && pass === savedPass) {
+							alert("Login Success! Welcome back.");
+							document.getElementById('main-login').reset();
+						} else {
+							alert("Invalid Email or Password! Did you Signup first?");
+						}
+					});
+
+					// FORGOT PASSWORD LOGIC
+					document.getElementById('main-forgot').addEventListener('submit', (e) => {
+						e.preventDefault();
+						const savedPass = localStorage.getItem('userPass');
+						if(savedPass) {
+							alert("Your saved password is: " + savedPass);
+						} else {
+							alert("No account found with this email.");
+						}
+					});
+				</script>
+
+	</body>
+</html>	
